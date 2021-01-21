@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 plt.style.use('fivethirtyeight')
 
 # Get the stock quote
-df = web.DataReader('AAPL', data_source='yahoo', start='2015-01-01', end='2021-01-17')
+df = web.DataReader('AAPL', data_source='yahoo', start='2015-01-01', end='2021-01-01')
 
 # Show the data
 print(df)
@@ -125,7 +125,7 @@ plt.show()
 print(valid)
 
 # Get the quote
-apple_quote = web.DataReader('AAPL', data_source='yahoo', start='2012-01-01', end='2019-12-17')
+apple_quote = web.DataReader('AAPL', data_source='yahoo', start='2015-01-01', end='2021-01-18')
 # Create a new dataframe
 new_df = apple_quote.filter(['Close'])
 # Get the last 60 day closing price and convert it into an array
@@ -147,5 +147,5 @@ pred_price = scaler.inverse_transform(pred_price)
 print(pred_price)
 
 # Get the quote and check the final day price
-apple_quote2 = web.DataReader('AAPL', data_source='yahoo', start='2015-01-01', end='2021-01-17')
+apple_quote2 = web.DataReader('AAPL', data_source='yahoo', start='2021-01-19', end='2021-01-19')
 print(apple_quote2['Close'])
