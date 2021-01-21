@@ -147,5 +147,5 @@ pred_price = scaler.inverse_transform(pred_price)
 print(pred_price)
 
 # Get the quote and check the final day price
-apple_quote2 = web.DataReader('AAPL', data_source='yahoo', start='2019-12-18', end='2019-12-18')
+apple_quote2 = web.DataReader('AAPL', data_source='yahoo', start='2015-01-01', end='2021-01-17')
 print(apple_quote2['Close'])
