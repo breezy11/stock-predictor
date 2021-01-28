@@ -1,5 +1,5 @@
 # Description: This program uses an artificial recurrent neural network called Long Short Term Memory
-#              (LSTM) to predict the closing stock price of 'Apple' using the past 60 day stock price.
+#              (LSTM - univariate) to predict the closing stock price of 'Apple' using the past 60 day stock price.
 
 # imports
 import math
@@ -80,7 +80,7 @@ model.compile(optimizer='adam', loss='mean_squared_error')
 model.fit(x_train, y_train, batch_size=1, epochs=1)
 
 # Create the testing data set
-# Create a new array containing scaled values from index 1543 to 2003
+# Create a new array containing scaled test values
 test_data = scaled_data[training_data_len - 60: , :]
 
 # Create the data sets x_test and y_test
