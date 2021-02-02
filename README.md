@@ -102,7 +102,7 @@ predictions = model.predict(x_test[:n_future])
 #### Perform inverse transformation to rescale back to original range
 
 Since we used 5 variables for transform, the inverse expects same dimensions. \
-Therefore, let us copy our values 5 times and discard them after inverse transform.
+So we copy our values 5 times and discard them after inverse transform.
 
 ```
 predictions = np.repeat(predictions, df.shape[1], axis=-1)
