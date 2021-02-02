@@ -30,6 +30,9 @@ df = web.DataReader('AAPL', data_source='yahoo', start='2016-01-01', end='2021-0
 # Dropping the volume column
 df.drop(['Volume'], axis=1, inplace=True)
 
+print(df)
+
+
 #Separate dates for future plotting
 train_dates = df.index
 
@@ -77,10 +80,11 @@ model.compile(optimizer='adam', loss='mse')
 history = model.fit(x_train, y_train, epochs=10, batch_size=16, validation_split=0.1, verbose=1)
 
 # Plotting the training and validation loss
-# plt.plot(history.history['loss'], label='Training loss')
-# plt.plot(history.history['val_loss'], label='Validation loss')
-# plt.legend()
-# plt.show()
+plt.plot(history.history['loss'], label='Training loss')
+plt.plot(history.history['val_loss'], label='Validation loss')
+plt.legend()
+plt.tight_layout()
+plt.show()
 
 n_future = 30
 forecast_period_dates = pd.date_range(list(train_dates)[training_data_len], periods=n_future, freq=us_bd).tolist()
