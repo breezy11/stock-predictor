@@ -74,5 +74,70 @@ history = model.fit(x_train, y_train, epochs=10, batch_size=16, validation_split
 
 
 
+## Test
 
+#### Getting the dates of the prediction
 
+```
+n_future = 30
+forecast_period_dates = pd.date_range(list(train_dates)[training_data_len], periods=n_future, freq=us_bd).tolist()
+```
+
+#### Preparing the test data
+
+```
+test_data = scaled_data[training_data_len - n_past:, :]
+
+x_test = []
+y_test = df[training_data_len:]
+
+for i in range(n_past, len(test_data) - n_future + 1):
+    x_test.append(test_data[i - n_past:i, 0:df.shape[1]])
+
+x_test = np.array(x_test)
+```
+
+#### Predicting the values
+
+```
+predictions = model.predict(x_test[:n_future])
+```
+
+#### Perform inverse transformation to rescale back to original range
+
+Since we used 5 variables for transform, the inverse expects same dimensions. \
+Therefore, let us copy our values 5 times and discard them after inverse transform.
+
+```
+predictions = np.repeat(predictions, df.shape[1], axis=-1)
+predictions = scaler.inverse_transform(predictions)[:,0]
+```
+
+#### Match the predicted open price with the correspoding dates
+
+```
+df_forecast = pd.DataFrame({'Date':np.array(forecast_dates), 'Open':predictions})
+df_forecast['Date']=pd.to_datetime(df_forecast['Date'])
+df_forecast.set_index('Date', inplace=True)
+```
+
+#### Match the original open price with the correspoding dates
+
+```
+original = df[forecast_dates[0]:forecast_dates[-1]]
+original = pd.DataFrame({'Date':np.array(forecast_dates), 'Open':original['Open']})
+original['Date']=pd.to_datetime(original['Date'])
+original.set_index('Date', inplace=True)
+```
+
+#### Plot the original and the predicted open price
+
+```
+original['Open'].plot(label='Real prices', figsize=(16,8))
+df_forecast['Open'].plot(label='Predicted')
+plt.title('Predicted vs Real Open price for Apple')
+plt.xlabel('Date')
+plt.ylabel('Open Price USD ($)')
+plt.legend()
+plt.show()
+```
