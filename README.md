@@ -10,10 +10,6 @@ Timeframe is from the 1st of January 2016 to the 1st of January 2021.
 
 ```df = web.DataReader('AAPL', data_source='yahoo', start='2016-01-01', end='2021-01-01')```
 
-#### Droping the 'Volume' columns since we won't be using it.
-
-```df.drop(['Volume'], axis=1, inplace=True)```
-
 #### Printing the first 5 rows of the dataframe
 
 
