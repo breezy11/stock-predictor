@@ -10,7 +10,7 @@ Timeframe is from the 1st of January 2016 to the 1st of January 2021.
 
 ```df = web.DataReader('AAPL', data_source='yahoo', start='2016-01-01', end='2021-01-01')```
 
-#### Printing the first 5 rows of the dataframe
+#### Show the first 5 rows of the dataframe
 
 
 || High | Low | Open | Close | Adj Close |
