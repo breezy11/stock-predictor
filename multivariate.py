@@ -32,7 +32,6 @@ df.drop(['Volume'], axis=1, inplace=True)
 
 print(df)
 
-
 #Separate dates for future plotting
 train_dates = df.index
 
@@ -80,8 +79,12 @@ model.compile(optimizer='adam', loss='mse')
 history = model.fit(x_train, y_train, epochs=10, batch_size=16, validation_split=0.1, verbose=1)
 
 # Plotting the training and validation loss
+plt.rcParams["figure.figsize"] = (12,6)
 plt.plot(history.history['loss'], label='Training loss')
 plt.plot(history.history['val_loss'], label='Validation loss')
+plt.title('Training vs Validation loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
 plt.legend()
 plt.tight_layout()
 plt.show()
