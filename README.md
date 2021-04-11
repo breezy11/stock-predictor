@@ -10,7 +10,7 @@ Timeframe is from the 1st of January 2016 to the 1st of January 2021.
 
 ```df = web.DataReader('AAPL', data_source='yahoo', start='2016-01-01', end='2021-01-01')```
 
-#### Show the first 5 rows of the dataframe
+#### Shows first 5 rows
 
 
 || High | Low | Open | Close | Adj Close |
@@ -22,7 +22,9 @@ Timeframe is from the 1st of January 2016 to the 1st of January 2021.
 |2016-01-08|24.777500|24.190001|24.637501|24.240000|22.457672|
 
 
-#### Separate dates for future plotting
+#### Dates separation
+
+Separates the dates for future plotting
 
 ```train_dates = df.index```
 
@@ -33,7 +35,7 @@ scaler = MinMaxScaler(feature_range=(0,1))
 scaled_data = scaler.fit_transform(df)
 ```
 
-#### Create the training data set
+#### Creating the training data set
 
 ```
 x_train = []
@@ -49,7 +51,7 @@ for i in range(n_past, len(train_data) - n_future + 1):
 
 ## Model
 
-#### Define the model
+#### Defining the model
 ```
 model = Sequential()
 model.add(LSTM(64, activation='relu', input_shape=(x_train.shape[1], x_train.shape[2]), return_sequences=True))
@@ -60,19 +62,19 @@ model.add(Dense(y_train.shape[1]))
 model.compile(optimizer='adam', loss='mse')
 ```
 
-#### Train the model
+#### Training the model
 
 ``` 
 history = model.fit(x_train, y_train, epochs=10, batch_size=16, validation_split=0.1, verbose=1)
 ```
 
-#### Plotting the training and validation loss
+#### Plotting the losses
 
 ![Plot of the training and validation loss](https://github.com/breezy11/stock-predictor/blob/master/plots/training-validation-loss.png)
 
 ## Test
 
-#### Getting the dates of the prediction
+#### Getting the dates
 
 ```
 n_future = 30
@@ -99,23 +101,23 @@ x_test = np.array(x_test)
 predictions = model.predict(x_test[:n_future])
 ```
 
-#### Perform inverse transformation to rescale back to original range
+#### Inverse transformation
 
+Perform inverse transformation to rescale back to original range
 ```
 predictions = np.repeat(predictions, df.shape[1], axis=-1)
 predictions = scaler.inverse_transform(predictions)[:,0]
 ```
 
-#### Match the predicted open price with the correspoding dates
+#### Matching the data and dates
 
+Match the predicted open price with the correspoding dates
 ```
 df_forecast = pd.DataFrame({'Date':np.array(forecast_dates), 'Open':predictions})
 df_forecast['Date']=pd.to_datetime(df_forecast['Date'])
 df_forecast.set_index('Date', inplace=True)
 ```
-
-#### Match the original open price with the correspoding dates
-
+Match the original open price with the correspoding dates
 ```
 original = df[forecast_dates[0]:forecast_dates[-1]]
 original = pd.DataFrame({'Date':np.array(forecast_dates), 'Open':original['Open']})
@@ -123,7 +125,7 @@ original['Date']=pd.to_datetime(original['Date'])
 original.set_index('Date', inplace=True)
 ```
 
-#### Plot the original and the predicted open price
+#### Ploting
 
 ```
 original['Open'].plot(label='Real prices', figsize=(16,8))
