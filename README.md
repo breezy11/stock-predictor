@@ -1,4 +1,4 @@
-# stock-predictor
+# stock-price-forecast
 This program uses an artificial recurrent neural network called Long Short Term Memory (LSTM - multivariate)<br/>to predict the opening stock price of 'Apple' for 30 days using the past 60-day stock price.
 
 ## Preparing the data
