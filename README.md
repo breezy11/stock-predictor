@@ -19,7 +19,7 @@ Example - first 5 rows
 
 ## model
 
-#### prediction plot
+#### prediction
 
 ![Plot of the predicted vs actual prices](https://github.com/breezy11/stock-predictor/blob/master/plots/predicted.png)
 
