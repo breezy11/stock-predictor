@@ -23,7 +23,7 @@ Example - first 5 rows
 
 ![Plot of the predicted vs actual prices](https://github.com/breezy11/stock-predictor/blob/master/plots/predicted.png)
 
-#### losses
+#### loss
 
 ![Plot of the training and validation loss](https://github.com/breezy11/stock-predictor/blob/master/plots/training-validation-loss.png)
 
